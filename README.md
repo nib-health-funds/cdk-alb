@@ -21,7 +21,7 @@ This will install the necessary CDK, then this example's dependencies, and then 
 
 ```bash
 $ npm run lint
-$ npm run build && npm run test
+$ npm run build && npx jest
 ```
 
 ## Tasks
