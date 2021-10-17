@@ -26,5 +26,7 @@ $ npm run build && npm run test
 
 ## Tasks
 
+Create a PR with the following changes:
+
 1. Update the instance type to something more modern `t3a`
 2. Open up 3 additional ports outbound on the ec2 (`5432`, `6379`, `12001`)
