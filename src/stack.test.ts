@@ -18,17 +18,21 @@ describe('LoadBalancerStack', () => {
   })
 
   it('have the required outbound ports open', () => {
-    expectCDK(testStack).to(haveResource('AWS::EC2::SecurityGroupEgress', {
-      ToPort: 80
-    }))
-    expectCDK(testStack).to(haveResource('AWS::EC2::SecurityGroupEgress', {
-      ToPort: 5432
-    }))
-    expectCDK(testStack).to(haveResource('AWS::EC2::SecurityGroupEgress', {
-      ToPort: 6379
-    }))
-    expectCDK(testStack).to(haveResource('AWS::EC2::SecurityGroupEgress', {
-      ToPort: 12001
+    expectCDK(testStack).to(haveResource('AWS::EC2::SecurityGroup', {
+      SecurityGroupEgress: [
+        objectLike({
+          ToPort: 80
+        }),
+        objectLike({
+          ToPort: 5432
+        }),
+        objectLike({
+          ToPort: 6379
+        }),
+        objectLike({
+          ToPort: 12001
+        })
+      ]
     }))
   })
 
