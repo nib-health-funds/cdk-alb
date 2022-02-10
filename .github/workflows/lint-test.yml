@@ -1,0 +1,14 @@
+name: Lint Test
+on: [push]
+jobs:
+  Lint-And-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Lint and test
+        run: |
+          npm install
+          npm run lint
+          npm run test
+      - run: echo "Winner winner 🐓 dinner"
