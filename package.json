@@ -9,7 +9,7 @@
         "watch": "tsc -w",
         "cdk": "cdk",
         "test": "jest",
-        "test-update": "test -u",
+        "test-update": "jest -u",
         "lint": "eslint 'src/**/*.ts' --quiet",
         "lint-fix": "eslint 'src/**/*.ts' --quiet --fix"
     },
@@ -36,6 +36,7 @@
         "@aws-cdk/aws-autoscaling": "^1.140.0",
         "@aws-cdk/aws-ec2": "^1.140.0",
         "@aws-cdk/aws-elasticloadbalancingv2": "^1.140.0",
+        "@aws-cdk/aws-iam": "^1.140.0",
         "@aws-cdk/core": "^1.140.0"
     }
 }

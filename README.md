@@ -27,5 +27,5 @@ Create a PR with the following changes:
 1. Update the instance type to something more modern `t3a`
 2. Open up 3 additional ports outbound on the ec2 (`5432`, `6379`, `12001`)
 3. Change the Autoscaling group to scale on CPU load.
-4. Add IAM role to read from the s3 bucket `cdk-alb-test`
-5. Add a script in userdata to copy the `cdk-alb-test` file from s3 to the new instance.
+4. Add IAM role to read from the s3 bucket `arn:aws:s3:::cdk-alb-test`
+5. Add a script in userdata to copy the `testFile.txt` file from s3 to the new instance.
