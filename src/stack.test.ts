@@ -11,6 +11,13 @@ describe('LoadBalancerStack', () => {
     testStack = new LoadBalancerStack(testApp, 'Loadbalancer')
   })
 
+  it('should create an autoscaling group', () => {
+    expectCDK(testStack).to(haveResource('AWS::AutoScaling::AutoScalingGroup', {
+      MaxSize: '1',
+      MinSize: '1'
+    }))
+  })
+
   it('should use the correct instance type', () => {
     expectCDK(testStack).to(haveResource('AWS::AutoScaling::LaunchConfiguration', {
       InstanceType: 't3a.micro'
