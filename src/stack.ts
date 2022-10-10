@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import autoscaling = require('@aws-cdk/aws-autoscaling')
 import ec2 = require('@aws-cdk/aws-ec2')
+import iam = require('@aws-cdk/aws-iam')
 import { ApplicationLoadBalancer } from '@aws-cdk/aws-elasticloadbalancingv2'
 import { App, Stack } from '@aws-cdk/core'
 
@@ -9,6 +10,21 @@ export class LoadBalancerStack extends Stack {
     super(app, id)
 
     const vpc = new ec2.Vpc(this, 'VPC')
+
+    const iamPolicy = new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        actions: [
+          's3:GetObject'
+        ],
+        principals: [new iam.AccountRootPrincipal()],
+        resources: ['arn:aws:s3:::cdk-alb-test/*'],
+      })
+
+    const iamRole = new iam.Role(this, 'ec2Role', {
+      assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com')
+    });
+
+    iamRole.addToPolicy(iamPolicy)
 
     const lb = new ApplicationLoadBalancer(this, 'LB', {
       vpc,
@@ -31,7 +47,8 @@ export class LoadBalancerStack extends Stack {
         vpc,
         instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3A, ec2.InstanceSize.MICRO),
         machineImage: new ec2.AmazonLinuxImage(),
-        securityGroup: sg
+        securityGroup: sg,
+        role: iamRole
       })
 
     const listener = lb.addListener('Listener', {
