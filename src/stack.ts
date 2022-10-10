@@ -45,8 +45,8 @@ export class LoadBalancerStack extends Stack {
 
     listener.connections.allowDefaultPortFromAnyIpv4('Open to the world')
 
-    asg.scaleOnRequestCount('AModestLoad', {
-      targetRequestsPerSecond: 1
+    asg.scaleOnCpuUtilization('AModestLoad', {
+      targetUtilizationPercent: 40
     })
   }
 }
