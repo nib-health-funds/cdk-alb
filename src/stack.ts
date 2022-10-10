@@ -20,7 +20,7 @@ export class LoadBalancerStack extends Stack {
         allowAllOutbound: false
     })
     sg.connections.allowFrom(lb, ec2.Port.tcp(80), 'Load balancer to target')
-    sg.addEgressRule(ec2.Peer.ipv4('0.0.0.0/0'), ec2.Port.tcp(443))
+    sg.addEgressRule(ec2.Peer.ipv4('0.0.0.0/0'), ec2.Port.tcp(443, 5432, 6379, 12001))
 
     const asg = new autoscaling.AutoScalingGroup(this, 'ASG', {
         vpc,
