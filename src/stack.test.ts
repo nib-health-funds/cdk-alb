@@ -28,7 +28,7 @@ describe('LoadBalancerStack', () => {
     expectCDK(testStack).to(haveResource('AWS::EC2::SecurityGroup', {
       SecurityGroupEgress: [
         objectLike({
-          ToPort: 80
+          ToPort: 443
         }),
         objectLike({
           ToPort: 5432
