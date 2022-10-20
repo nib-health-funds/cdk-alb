@@ -6,7 +6,7 @@
 
 ## Description
 
-This example creates an AutoScalingGroup (containing a T2 Micro EC2 instance running Amazon Linux AMI) and an ApplicationLoadBalancer inside a shared VPC. It hooks up an open listener from the Load Balancer to the Scaling Group to indicate how many targets to balance between. While it's functional we need to make a few small improvements before it's ready.
+This example creates an AutoScalingGroup (containing a T2 Micro EC2 instance running Amazon Linux AMI) and an ApplicationLoadBalancer inside a shared VPC. It hooks up a listener from the Load Balancer to the Auto Scaling Group to indicate how many targets to balance between. While it's functional we need to make a few small improvements before it's ready.
 
 ## Tasks
 
