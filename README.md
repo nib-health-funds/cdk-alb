@@ -30,7 +30,7 @@ $ npm install
 
 This will install the necessary CDK version, then this example's dependencies, and then build your TypeScript files and your CloudFormation template. For the purpose of the assessment you won't need to compile down to javascript, both the linter and tests can process typescript.
 
-We recomment using the current node LTS version, 16 at time of writing.
+We recommend using the current node LTS version, 16 at time of writing.
 
 ## How to test
 
