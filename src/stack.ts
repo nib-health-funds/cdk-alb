@@ -4,6 +4,7 @@ import ec2 = require('@aws-cdk/aws-ec2')
 import { ApplicationLoadBalancer } from '@aws-cdk/aws-elasticloadbalancingv2'
 import { App, Stack } from '@aws-cdk/core'
 import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam'
+import { Bucket } from '@aws-cdk/aws-s3'
 
 export class LoadBalancerStack extends Stack {
   constructor(app: App, id: string) {
@@ -38,12 +39,21 @@ export class LoadBalancerStack extends Stack {
       resources: ['arn:aws:s3:::cdk-alb-test/*']
     }))
 
+    const userData = ec2.UserData.forLinux()
+    const bucket = Bucket.fromBucketArn(this, 's3Bucket', 'arn:aws:s3:::cdk-alb-test')
+
+    userData.addS3DownloadCommand({
+      bucket: bucket,
+      bucketKey: 'testFile.txt'
+    })
+
     const asg = new autoscaling.AutoScalingGroup(this, 'ASG', {
         vpc,
         instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3A, ec2.InstanceSize.MICRO),
         machineImage: new ec2.AmazonLinuxImage(),
         securityGroup: sg,
-        role: role
+        role: role,
+        userData: userData
       })
 
     const listener = lb.addListener('Listener', {
