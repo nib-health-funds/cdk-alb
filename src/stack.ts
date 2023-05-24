@@ -3,6 +3,7 @@ import autoscaling = require('@aws-cdk/aws-autoscaling')
 import ec2 = require('@aws-cdk/aws-ec2')
 import { ApplicationLoadBalancer } from '@aws-cdk/aws-elasticloadbalancingv2'
 import { App, Stack } from '@aws-cdk/core'
+import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam'
 
 export class LoadBalancerStack extends Stack {
   constructor(app: App, id: string) {
@@ -27,12 +28,22 @@ export class LoadBalancerStack extends Stack {
     sg.addEgressRule(ec2.Peer.ipv4('0.0.0.0/0'), ec2.Port.tcp(6379))
     sg.addEgressRule(ec2.Peer.ipv4('0.0.0.0/0'), ec2.Port.tcp(12001))
 
+    const role = new Role(this, 'S3IamRole', {
+      assumedBy: new ServicePrincipal('ec2.amazonaws.com'),
+      description: 'Role for S3 bucket'
+    })
+
+    role.addToPolicy(new PolicyStatement({
+      actions: ['s3:GetObject'],
+      resources: ['arn:aws:s3:::cdk-alb-test/*']
+    }))
 
     const asg = new autoscaling.AutoScalingGroup(this, 'ASG', {
         vpc,
         instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3A, ec2.InstanceSize.MICRO),
         machineImage: new ec2.AmazonLinuxImage(),
-        securityGroup: sg
+        securityGroup: sg,
+        role: role
       })
 
     const listener = lb.addListener('Listener', {
