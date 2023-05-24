@@ -49,5 +49,9 @@ export class LoadBalancerStack extends Stack {
     asg.scaleOnRequestCount('AModestLoad', {
       targetRequestsPerSecond: 1
     })
+
+    asg.scaleOnCpuUtilization('ScaleOnCPU', {
+      targetUtilizationPercent: 40
+    })
   }
 }
