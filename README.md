@@ -26,7 +26,6 @@ To build this app, you need to be in this example's root folder. Then run the fo
 
 ```bash
 npm install
-npm run build
 ```
 
 ### Using Docker
@@ -37,17 +36,11 @@ docker run -it \
     --workdir /app \
     node:lts \
     npm install
-
-docker run -it \
-    --volume ${PWD}:/app \
-    --workdir /app \
-    node:lts \
-    npm run build
 ```
 
-This will install the necessary CDK version, then this example's dependencies, and then build your TypeScript files and your CloudFormation template. For the purpose of the assessment you won't need to compile down to javascript, both the linter and tests can process typescript.
+This will install the necessary CDK version, then this example's dependencies, and then build your CloudFormation template. For the purpose of the assessment you won't need to compile down to javascript, both the linter and tests can process typescript.
 
-We recommend using the current node LTS version, 16 at time of writing.
+We recommend using the current node LTS version, 20 at time of writing.
 
 ## How to test
 ```bash

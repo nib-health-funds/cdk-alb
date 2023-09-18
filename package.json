@@ -4,8 +4,6 @@
     "description": "CDK example of an application load balancer and associated resources",
     "private": true,
     "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w",
         "cdk": "cdk",
         "test": "jest --verbose",
         "test-update": "jest -u",
