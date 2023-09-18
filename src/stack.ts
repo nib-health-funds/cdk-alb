@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import autoscaling = require('@aws-cdk/aws-autoscaling')
-import ec2 = require('@aws-cdk/aws-ec2')
-import { ApplicationLoadBalancer } from '@aws-cdk/aws-elasticloadbalancingv2'
-import { App, Stack } from '@aws-cdk/core'
+import autoscaling = require('aws-cdk-lib/aws-autoscaling')
+import ec2 = require('aws-cdk-lib/aws-ec2')
+import { ApplicationLoadBalancer } from 'aws-cdk-lib/aws-elasticloadbalancingv2'
+import { App, Stack } from 'aws-cdk-lib/core'
 
 export class LoadBalancerStack extends Stack {
   constructor(app: App, id: string) {
@@ -41,7 +41,7 @@ export class LoadBalancerStack extends Stack {
     listener.connections.allowDefaultPortFromAnyIpv4('Open to the world')
 
     asg.scaleOnRequestCount('AModestLoad', {
-      targetRequestsPerSecond: 1
+      targetRequestsPerMinute: 1
     })
   }
 }
