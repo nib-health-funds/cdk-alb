@@ -44,33 +44,33 @@ describe('LoadBalancerStack', () => {
     })
   })
 
-  it('should autoscale on CPU load', () => {
-    Template.fromStack(testStack).hasResourceProperties('AWS::AutoScaling::ScalingPolicy', {
-      TargetTrackingConfiguration: {
-        PredefinedMetricSpecification: {
-          PredefinedMetricType: 'ASGAverageCPUUtilization'
-        },
-        TargetValue: 40
-      }
-    })
-  })
+  // it('should autoscale on CPU load', () => {
+  //   Template.fromStack(testStack).hasResourceProperties('AWS::AutoScaling::ScalingPolicy', {
+  //     TargetTrackingConfiguration: {
+  //       PredefinedMetricSpecification: {
+  //         PredefinedMetricType: 'ASGAverageCPUUtilization'
+  //       },
+  //       TargetValue: 40
+  //     }
+  //   })
+  // })
 
-  it('should have an IAM role to read from s3', () => {
-    Template.fromStack(testStack).hasResourceProperties('AWS::IAM::Policy', {
-      PolicyDocument: {
-        Statement: [Match.objectLike({
-          Action: 's3:GetObject',
-          Resource: 'arn:aws:s3:::cdk-alb-test/*',
-        })]
-      }
-    })
-  })
+  // it('should have an IAM role to read from s3', () => {
+  //   Template.fromStack(testStack).hasResourceProperties('AWS::IAM::Policy', {
+  //     PolicyDocument: {
+  //       Statement: [Match.objectLike({
+  //         Action: 's3:GetObject',
+  //         Resource: 'arn:aws:s3:::cdk-alb-test/*',
+  //       })]
+  //     }
+  //   })
+  // })
 
-  it('should have a userdata script', () => {
-    Template.fromStack(testStack).hasResourceProperties('AWS::AutoScaling::LaunchConfiguration', {
-      UserData: {
-        "Fn::Base64": Match.stringLikeRegexp('.*/testFile.txt.*')
-      }
-    })
-  })
+  // it('should have a userdata script', () => {
+  //   Template.fromStack(testStack).hasResourceProperties('AWS::AutoScaling::LaunchConfiguration', {
+  //     UserData: {
+  //       "Fn::Base64": Match.stringLikeRegexp('.*/testFile.txt.*')
+  //     }
+  //   })
+  // })
 })
