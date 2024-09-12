@@ -124,5 +124,6 @@ export class LoadBalancerStack extends Stack {
     createLoadBalancer(this, vpc, sg, asg);
 
     createS3ReadRole(this, s3BuckeArn);
+
   }
 }
